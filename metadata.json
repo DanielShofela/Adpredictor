@@ -1,0 +1,5 @@
+{
+  "name": "AdPredictor Pro",
+  "description": "Un outil de prévision de ROI pour les publicités Facebook permettant d'estimer les clics, les conversations et les ventes basés sur des scénarios pessimistes et optimistes.",
+  "requestFramePermissions": []
+}
