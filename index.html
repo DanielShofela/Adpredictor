@@ -10,6 +10,10 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
+    <!-- Shim critique pour éviter les ReferenceError: process is not defined -->
+    <script>
+      window.process = { env: { API_KEY: "" } };
+    </script>
 <script type="importmap">
 {
   "imports": {
@@ -25,7 +29,6 @@
 </head>
 <body class="bg-slate-50 text-slate-900">
     <div id="root"></div>
-    <!-- Point d'entrée de l'application -->
     <script type="module" src="./index.tsx"></script>
 </body>
 </html>

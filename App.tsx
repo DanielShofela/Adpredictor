@@ -2,11 +2,11 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Cell } from 'recharts';
 import { Calculator, TrendingUp, MessageCircle, ShoppingBag, PieChart, Sparkles, AlertCircle, RefreshCw, Calendar, Clock, ClipboardPaste, ArrowRightLeft, CheckCircle2, XCircle, MinusCircle, Star, Target } from 'lucide-react';
-import InputCard from './components/InputCard';
-import ResultCard from './components/ResultCard';
-import { AdInputs, PredictionResult, ActualCampaignData } from './types';
-import { DEFAULT_BENCHMARKS, CURRENCY } from './constants';
-import { getMarketingAdvice } from './services/geminiService';
+import InputCard from './components/InputCard.tsx';
+import ResultCard from './components/ResultCard.tsx';
+import { AdInputs, PredictionResult, ActualCampaignData } from './types.ts';
+import { DEFAULT_BENCHMARKS, CURRENCY } from './constants.ts';
+import { getMarketingAdvice } from './services/geminiService.ts';
 
 type ViewMode = 'daily' | 'monthly';
 
@@ -80,10 +80,11 @@ const App: React.FC = () => {
 
   const actualSummary = useMemo(() => {
     if (!actualData) return null;
-    const divider = viewMode === 'daily' ? actualData.duration : (actualData.duration / 30);
+    const duration = actualData.duration || 1;
+    const divider = viewMode === 'daily' ? duration : (duration / 30);
     const actualRevenue = (actualData.sales ?? 0) * inputs.productPrice;
     const actualProfitTotal = actualRevenue - (actualData.spent + ((actualData.sales ?? 0) * inputs.productCost));
-    const normalizedActualProfit = actualProfitTotal / (viewMode === 'daily' ? actualData.duration : (actualData.duration / 30));
+    const normalizedActualProfit = actualProfitTotal / divider;
     
     const clickToConvo = actualData.conversations ? (actualData.conversations / actualData.clicks) : 0;
     const convoToSale = (actualData.sales && actualData.conversations) ? (actualData.sales / actualData.conversations) : 0;

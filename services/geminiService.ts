@@ -1,6 +1,6 @@
 
 import { GoogleGenAI } from "@google/genai";
-import { AdInputs, PredictionResult, ActualCampaignData } from "../types";
+import { AdInputs, PredictionResult, ActualCampaignData } from "../types.ts";
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
@@ -39,6 +39,7 @@ export const getMarketingAdvice = async (inputs: AdInputs, results: PredictionRe
     });
     return response.text;
   } catch (error) {
+    console.error("Erreur Gemini:", error);
     return "Erreur d'analyse IA.";
   }
 };
